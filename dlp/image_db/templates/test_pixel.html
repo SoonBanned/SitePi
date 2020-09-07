@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/test_pixel.css' %}">
+        <script>
+            async function check_keyword(keyword){
+                return await fetch('/check/k?' + new URLSearchParams({
+                    keyword: keyword
+                    })).then(answ => answ.json()).then(json => json.valid)
+            }
+
+            async function check_input(el){
+                console.log(el)
+                let keyword = el.value;
+                let gsout = document.getElementById('guessedWord');
+                gsout.innerText = keyword;
+                let valid_input = await check_keyword(keyword);
+                console.log(valid_input)
+                if(valid_input){
+                    gsout.style.color = "#0F0";
+                }else{
+                    //do nothing
+                    gsout.style.color = "#F00";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <img src="{{ image.url }}">
+        <form onsubmit="check_input(this.elements[0]); return false;">
+            <input type="text" name="keyword">   
+        </form>
+        <p id="guessedWord">
+
+        </p>
+
+    </body>
+</html>

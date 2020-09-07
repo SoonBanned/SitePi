@@ -1,0 +1,7 @@
+img {
+    width: 50%;
+    height: 50%;
+    animation: 15s cubic-bezier(.42,.5,.28,.83) 0s 1 normal decrease_blur;
+}
+
+@keyframes decrease_blur { from { filter: blur(30px); } to { filter: blur(0px); }  }
